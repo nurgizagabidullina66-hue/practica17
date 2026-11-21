@@ -37,10 +37,19 @@ function setCategory(category) {
   document.querySelectorAll('.tab').forEach(function(tab){tab.className = 'tab' + (tab.getAttribute('data-category') === category ? ' active' : '');});
   renderProducts();
 }
-function setTerm(element,term) {
+function setTerm(element, term) {
   selectedTerm = term;
-  document.querySelectorAll('.terms span').forEach(function(item){item.className='';});
-  element.className='selected';
+  document.querySelectorAll('.terms span').forEach(function(item) { item.className = ''; });
+  element.className = 'selected';
+  
+  if (typeof products !== 'undefined' && products[selectedCategory] && products[selectedCategory][selectedIndex]) {
+    var product = products[selectedCategory][selectedIndex];
+    var price = term === 'Навсегда' ? product.price * 2 : product.price;
+    var btn = document.getElementById('choose-product');
+    if (btn) {
+      btn.textContent = 'Выбрать за ' + price + ' ₽';
+    }
+  }
 }
 function openDialog(title,text) {
   document.getElementById('dialog-title').textContent=title;
